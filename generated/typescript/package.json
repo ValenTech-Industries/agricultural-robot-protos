@@ -1,6 +1,6 @@
 {
   "name": "@agricultural-robot/protos-ts",
-  "version": "b7c872c",
+  "version": "dae17ea",
   "description": "TypeScript protobuf definitions for Agricultural Robot Platform",
   "main": "index.js",
   "types": "index.d.ts",

@@ -1,21 +1,13 @@
 version: v1
 plugins:
-  # Generate JavaScript files with TypeScript declarations
-  - plugin: buf.build/protocolbuffers/js
-    out: generated/typescript
-    opt: import_style=commonjs,binary
-  
-  # Generate TypeScript declarations
   - plugin: buf.build/protocolbuffers/js
     out: generated/typescript
     opt: import_style=commonjs,binary,dts
-  
-  # Generate gRPC service definitions
+
   - plugin: buf.build/grpc/node
     out: generated/typescript
     opt: grpc_js
-  
-  # Python
+
   - plugin: buf.build/protocolbuffers/python
     out: generated/python
   - plugin: buf.build/grpc/python
