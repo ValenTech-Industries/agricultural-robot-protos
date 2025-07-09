@@ -2,361 +2,361 @@
 
 'use strict';
 var grpc = require('@grpc/grpc-js');
-var proto_robot_navigation_robot$navigation_pb = require('../../../proto/robot/navigation/robot-navigation_pb.js');
+var robot_navigation_robot$navigation_pb = require('../../robot/navigation/robot-navigation_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
 
 function serialize_agricultural_robot_navigation_v1_CameraControlRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.CameraControlRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.CameraControlRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.CameraControlRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_CameraControlRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.CameraControlRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.CameraControlRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_CameraControlResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.CameraControlResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.CameraControlResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.CameraControlResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_CameraControlResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.CameraControlResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.CameraControlResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_CameraInfoResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.CameraInfoResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.CameraInfoResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.CameraInfoResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_CameraInfoResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.CameraInfoResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.CameraInfoResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_CancelGoalRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.CancelGoalRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.CancelGoalRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.CancelGoalRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_CancelGoalRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.CancelGoalRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.CancelGoalRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_ClearMapRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.ClearMapRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.ClearMapRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.ClearMapRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_ClearMapRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.ClearMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.ClearMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_GetCameraInfoRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.GetCameraInfoRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.GetCameraInfoRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.GetCameraInfoRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_GetCameraInfoRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.GetCameraInfoRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.GetCameraInfoRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_GetLocalizationStatusRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.GetLocalizationStatusRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_GetLocalizationStatusRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_GetMapRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.GetMapRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.GetMapRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.GetMapRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_GetMapRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.GetMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.GetMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_GetNavigationStatusRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.GetNavigationStatusRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.GetNavigationStatusRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.GetNavigationStatusRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_GetNavigationStatusRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.GetNavigationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.GetNavigationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_GetPositionRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.GetPositionRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.GetPositionRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.GetPositionRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_GetPositionRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.GetPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.GetPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_InitializeLocalizationRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.InitializeLocalizationRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.InitializeLocalizationRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.InitializeLocalizationRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_InitializeLocalizationRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.InitializeLocalizationRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.InitializeLocalizationRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_LocalizationResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.LocalizationResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.LocalizationResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.LocalizationResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_LocalizationResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.LocalizationResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.LocalizationResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_LocalizationStatusResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.LocalizationStatusResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.LocalizationStatusResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.LocalizationStatusResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_LocalizationStatusResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.LocalizationStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.LocalizationStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_MapResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.MapResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.MapResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.MapResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_MapResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.MapResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.MapResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_NavigationGoal(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.NavigationGoal)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.NavigationGoal)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.NavigationGoal');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_NavigationGoal(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.NavigationGoal.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.NavigationGoal.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_NavigationResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.NavigationResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.NavigationResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.NavigationResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_NavigationResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.NavigationResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.NavigationResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_NavigationStatusResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.NavigationStatusResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.NavigationStatusResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.NavigationStatusResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_NavigationStatusResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.NavigationStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.NavigationStatusResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_NavigationStatusUpdate(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.NavigationStatusUpdate)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.NavigationStatusUpdate)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.NavigationStatusUpdate');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_NavigationStatusUpdate(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.NavigationStatusUpdate.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.NavigationStatusUpdate.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_PositionResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.PositionResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.PositionResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.PositionResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_PositionResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.PositionResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.PositionResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_PositionUpdate(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.PositionUpdate)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.PositionUpdate)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.PositionUpdate');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_PositionUpdate(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.PositionUpdate.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.PositionUpdate.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_ResetLocalizationRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.ResetLocalizationRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.ResetLocalizationRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.ResetLocalizationRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_ResetLocalizationRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.ResetLocalizationRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.ResetLocalizationRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_SetMapRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.SetMapRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.SetMapRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.SetMapRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_SetMapRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.SetMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.SetMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_SetPositionRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.SetPositionRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.SetPositionRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.SetPositionRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_SetPositionRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.SetPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.SetPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_StopMovementRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.StopMovementRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.StopMovementRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.StopMovementRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_StopMovementRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.StopMovementRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.StopMovementRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_StreamNavigationStatusRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.StreamNavigationStatusRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_StreamNavigationStatusRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_StreamPositionRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.StreamPositionRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.StreamPositionRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.StreamPositionRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_StreamPositionRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.StreamPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.StreamPositionRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_StreamVideoRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.StreamVideoRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.StreamVideoRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.StreamVideoRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_StreamVideoRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.StreamVideoRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.StreamVideoRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_TrajectoryCommand(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.TrajectoryCommand)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.TrajectoryCommand)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.TrajectoryCommand');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_TrajectoryCommand(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.TrajectoryCommand.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.TrajectoryCommand.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_UpdateMapRequest(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.UpdateMapRequest)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.UpdateMapRequest)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.UpdateMapRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_UpdateMapRequest(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.UpdateMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.UpdateMapRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_VelocityCommand(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.VelocityCommand)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.VelocityCommand)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.VelocityCommand');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_VelocityCommand(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.VelocityCommand.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.VelocityCommand.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_VelocityResponse(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.VelocityResponse)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.VelocityResponse)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.VelocityResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_VelocityResponse(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.VelocityResponse.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.VelocityResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_agricultural_robot_navigation_v1_VideoFrame(arg) {
-  if (!(arg instanceof proto_robot_navigation_robot$navigation_pb.VideoFrame)) {
+  if (!(arg instanceof robot_navigation_robot$navigation_pb.VideoFrame)) {
     throw new Error('Expected argument of type agricultural.robot.navigation.v1.VideoFrame');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_agricultural_robot_navigation_v1_VideoFrame(buffer_arg) {
-  return proto_robot_navigation_robot$navigation_pb.VideoFrame.deserializeBinary(new Uint8Array(buffer_arg));
+  return robot_navigation_robot$navigation_pb.VideoFrame.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_google_protobuf_Empty(arg) {
@@ -377,8 +377,8 @@ getMap: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/GetMap',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.GetMapRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.MapResponse,
+    requestType: robot_navigation_robot$navigation_pb.GetMapRequest,
+    responseType: robot_navigation_robot$navigation_pb.MapResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_GetMapRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_GetMapRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_MapResponse,
@@ -388,8 +388,8 @@ getMap: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/SetMap',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.SetMapRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.MapResponse,
+    requestType: robot_navigation_robot$navigation_pb.SetMapRequest,
+    responseType: robot_navigation_robot$navigation_pb.MapResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_SetMapRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_SetMapRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_MapResponse,
@@ -399,8 +399,8 @@ getMap: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/UpdateMap',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.UpdateMapRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.MapResponse,
+    requestType: robot_navigation_robot$navigation_pb.UpdateMapRequest,
+    responseType: robot_navigation_robot$navigation_pb.MapResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_UpdateMapRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_UpdateMapRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_MapResponse,
@@ -410,7 +410,7 @@ getMap: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/ClearMap',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.ClearMapRequest,
+    requestType: robot_navigation_robot$navigation_pb.ClearMapRequest,
     responseType: google_protobuf_empty_pb.Empty,
     requestSerialize: serialize_agricultural_robot_navigation_v1_ClearMapRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_ClearMapRequest,
@@ -422,8 +422,8 @@ getPosition: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/GetPosition',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.GetPositionRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.PositionResponse,
+    requestType: robot_navigation_robot$navigation_pb.GetPositionRequest,
+    responseType: robot_navigation_robot$navigation_pb.PositionResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_GetPositionRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_GetPositionRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_PositionResponse,
@@ -433,8 +433,8 @@ getPosition: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/SetPosition',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.SetPositionRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.PositionResponse,
+    requestType: robot_navigation_robot$navigation_pb.SetPositionRequest,
+    responseType: robot_navigation_robot$navigation_pb.PositionResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_SetPositionRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_SetPositionRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_PositionResponse,
@@ -444,8 +444,8 @@ getPosition: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/StreamPosition',
     requestStream: false,
     responseStream: true,
-    requestType: proto_robot_navigation_robot$navigation_pb.StreamPositionRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.PositionUpdate,
+    requestType: robot_navigation_robot$navigation_pb.StreamPositionRequest,
+    responseType: robot_navigation_robot$navigation_pb.PositionUpdate,
     requestSerialize: serialize_agricultural_robot_navigation_v1_StreamPositionRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_StreamPositionRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_PositionUpdate,
@@ -456,8 +456,8 @@ sendVelocityCommand: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/SendVelocityCommand',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.VelocityCommand,
-    responseType: proto_robot_navigation_robot$navigation_pb.VelocityResponse,
+    requestType: robot_navigation_robot$navigation_pb.VelocityCommand,
+    responseType: robot_navigation_robot$navigation_pb.VelocityResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_VelocityCommand,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_VelocityCommand,
     responseSerialize: serialize_agricultural_robot_navigation_v1_VelocityResponse,
@@ -467,8 +467,8 @@ sendVelocityCommand: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/StreamVelocityCommands',
     requestStream: true,
     responseStream: true,
-    requestType: proto_robot_navigation_robot$navigation_pb.VelocityCommand,
-    responseType: proto_robot_navigation_robot$navigation_pb.VelocityResponse,
+    requestType: robot_navigation_robot$navigation_pb.VelocityCommand,
+    responseType: robot_navigation_robot$navigation_pb.VelocityResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_VelocityCommand,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_VelocityCommand,
     responseSerialize: serialize_agricultural_robot_navigation_v1_VelocityResponse,
@@ -478,8 +478,8 @@ sendVelocityCommand: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/StopMovement',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.StopMovementRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.VelocityResponse,
+    requestType: robot_navigation_robot$navigation_pb.StopMovementRequest,
+    responseType: robot_navigation_robot$navigation_pb.VelocityResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_StopMovementRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_StopMovementRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_VelocityResponse,
@@ -490,8 +490,8 @@ sendGoal: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/SendGoal',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.NavigationGoal,
-    responseType: proto_robot_navigation_robot$navigation_pb.NavigationResponse,
+    requestType: robot_navigation_robot$navigation_pb.NavigationGoal,
+    responseType: robot_navigation_robot$navigation_pb.NavigationResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_NavigationGoal,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_NavigationGoal,
     responseSerialize: serialize_agricultural_robot_navigation_v1_NavigationResponse,
@@ -501,8 +501,8 @@ sendGoal: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/SendTrajectory',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.TrajectoryCommand,
-    responseType: proto_robot_navigation_robot$navigation_pb.NavigationResponse,
+    requestType: robot_navigation_robot$navigation_pb.TrajectoryCommand,
+    responseType: robot_navigation_robot$navigation_pb.NavigationResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_TrajectoryCommand,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_TrajectoryCommand,
     responseSerialize: serialize_agricultural_robot_navigation_v1_NavigationResponse,
@@ -512,8 +512,8 @@ sendGoal: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/CancelGoal',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.CancelGoalRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.NavigationResponse,
+    requestType: robot_navigation_robot$navigation_pb.CancelGoalRequest,
+    responseType: robot_navigation_robot$navigation_pb.NavigationResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_CancelGoalRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_CancelGoalRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_NavigationResponse,
@@ -523,8 +523,8 @@ sendGoal: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/GetNavigationStatus',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.GetNavigationStatusRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.NavigationStatusResponse,
+    requestType: robot_navigation_robot$navigation_pb.GetNavigationStatusRequest,
+    responseType: robot_navigation_robot$navigation_pb.NavigationStatusResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_GetNavigationStatusRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_GetNavigationStatusRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_NavigationStatusResponse,
@@ -534,8 +534,8 @@ sendGoal: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/StreamNavigationStatus',
     requestStream: false,
     responseStream: true,
-    requestType: proto_robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.NavigationStatusUpdate,
+    requestType: robot_navigation_robot$navigation_pb.StreamNavigationStatusRequest,
+    responseType: robot_navigation_robot$navigation_pb.NavigationStatusUpdate,
     requestSerialize: serialize_agricultural_robot_navigation_v1_StreamNavigationStatusRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_StreamNavigationStatusRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_NavigationStatusUpdate,
@@ -546,8 +546,8 @@ getCameraInfo: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/GetCameraInfo',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.GetCameraInfoRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.CameraInfoResponse,
+    requestType: robot_navigation_robot$navigation_pb.GetCameraInfoRequest,
+    responseType: robot_navigation_robot$navigation_pb.CameraInfoResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_GetCameraInfoRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_GetCameraInfoRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_CameraInfoResponse,
@@ -557,8 +557,8 @@ getCameraInfo: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/StreamVideo',
     requestStream: false,
     responseStream: true,
-    requestType: proto_robot_navigation_robot$navigation_pb.StreamVideoRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.VideoFrame,
+    requestType: robot_navigation_robot$navigation_pb.StreamVideoRequest,
+    responseType: robot_navigation_robot$navigation_pb.VideoFrame,
     requestSerialize: serialize_agricultural_robot_navigation_v1_StreamVideoRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_StreamVideoRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_VideoFrame,
@@ -568,8 +568,8 @@ getCameraInfo: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/ControlCamera',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.CameraControlRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.CameraControlResponse,
+    requestType: robot_navigation_robot$navigation_pb.CameraControlRequest,
+    responseType: robot_navigation_robot$navigation_pb.CameraControlResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_CameraControlRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_CameraControlRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_CameraControlResponse,
@@ -580,8 +580,8 @@ getLocalizationStatus: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/GetLocalizationStatus',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.LocalizationStatusResponse,
+    requestType: robot_navigation_robot$navigation_pb.GetLocalizationStatusRequest,
+    responseType: robot_navigation_robot$navigation_pb.LocalizationStatusResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_GetLocalizationStatusRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_GetLocalizationStatusRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_LocalizationStatusResponse,
@@ -591,8 +591,8 @@ getLocalizationStatus: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/InitializeLocalization',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.InitializeLocalizationRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.LocalizationResponse,
+    requestType: robot_navigation_robot$navigation_pb.InitializeLocalizationRequest,
+    responseType: robot_navigation_robot$navigation_pb.LocalizationResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_InitializeLocalizationRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_InitializeLocalizationRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_LocalizationResponse,
@@ -602,8 +602,8 @@ getLocalizationStatus: {
     path: '/agricultural.robot.navigation.v1.RobotNavigationService/ResetLocalization',
     requestStream: false,
     responseStream: false,
-    requestType: proto_robot_navigation_robot$navigation_pb.ResetLocalizationRequest,
-    responseType: proto_robot_navigation_robot$navigation_pb.LocalizationResponse,
+    requestType: robot_navigation_robot$navigation_pb.ResetLocalizationRequest,
+    responseType: robot_navigation_robot$navigation_pb.LocalizationResponse,
     requestSerialize: serialize_agricultural_robot_navigation_v1_ResetLocalizationRequest,
     requestDeserialize: deserialize_agricultural_robot_navigation_v1_ResetLocalizationRequest,
     responseSerialize: serialize_agricultural_robot_navigation_v1_LocalizationResponse,

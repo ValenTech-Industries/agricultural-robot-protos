@@ -1,41 +1,39 @@
 #!/bin/bash
 set -e
 
-echo "🔄 Generating protobuf code for all languages..."
+echo "🔄 Completing protobuf generation..."
 
-# Generate all languages ONCE
-buf generate
+# The JavaScript generation already worked, so let's just do Python and C++
 
-echo "📦 Setting up TypeScript package..."
+echo "📦 Generating Python..."
+python3 -m grpc_tools.protoc \
+  --python_out=generated/python \
+  --grpc_python_out=generated/python \
+  --proto_path=proto \
+  proto/robot/navigation/robot-navigation.proto
 
-# Create package.json for generated code (only if it doesn't exist)
-if [ ! -f "generated/typescript/package.json" ]; then
-    cat > generated/typescript/package.json << EOF
-{
-  "name": "@agricultural-robot/protos-ts",
-  "version": "$(git describe --tags --always)",
-  "description": "TypeScript protobuf definitions for Agricultural Robot Platform",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "files": ["**/*.js", "**/*.d.ts"],
-  "dependencies": {
-    "@grpc/grpc-js": "^1.9.0",
-    "google-protobuf": "^3.21.0"
-  },
-  "repository": "https://github.com/ValenTech-Industries/agricultural-robot-protos",
-  "license": "MIT"
-}
-EOF
+echo "📦 Generating C++..."
+# Generate C++ protobuf messages
+protoc \
+  --experimental_allow_proto3_optional \
+  --cpp_out=generated/cpp \
+  --proto_path=proto \
+  proto/robot/navigation/robot-navigation.proto
+
+# Generate C++ gRPC services (if grpc_cpp_plugin is available)
+if command -v grpc_cpp_plugin &> /dev/null; then
+    echo "📦 Generating C++ gRPC services..."
+    protoc \
+      --experimental_allow_proto3_optional \
+      --grpc_cpp_out=generated/cpp \
+      --plugin=protoc-gen-grpc_cpp=$(which grpc_cpp_plugin) \
+      --proto_path=proto \
+      proto/robot/navigation/robot-navigation.proto
+else
+    echo "⚠️  grpc_cpp_plugin not found, skipping C++ gRPC generation"
+    echo "   Install with: sudo apt install libgrpc++-dev"
 fi
 
-# Create index file (only if it doesn't exist)
-if [ ! -f "generated/typescript/index.ts" ]; then
-    cat > generated/typescript/index.ts << EOF
-// Export all generated protobuf types
-export * from './proto/robot/navigation/robot-navigation_pb';
-export * from './proto/robot/navigation/robot-navigation_grpc_pb';
-// Add more exports as needed
-EOF
-fi
-
-echo "✅ All protobuf generation complete!"
+echo "✅ Generation complete!"
+echo "📁 All generated files:"
+find generated/ -type f | sort

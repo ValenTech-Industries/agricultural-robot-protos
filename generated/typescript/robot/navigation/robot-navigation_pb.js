@@ -1,4 +1,4 @@
-// source: proto/robot/navigation/robot-navigation.proto
+// source: robot/navigation/robot-navigation.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -13,13 +13,13 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global =
-    (typeof globalThis !== 'undefined' && globalThis) ||
-    (typeof window !== 'undefined' && window) ||
-    (typeof global !== 'undefined' && global) ||
-    (typeof self !== 'undefined' && self) ||
-    (function () { return this; }).call(null) ||
-    Function('return this')();
+var global = (function() {
+  if (this) { return this; }
+  if (typeof window !== 'undefined') { return window; }
+  if (typeof global !== 'undefined') { return global; }
+  if (typeof self !== 'undefined') { return self; }
+  return Function('return this')();
+}.call(null));
 
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
@@ -1446,9 +1446,9 @@ proto.agricultural.robot.navigation.v1.GetMapRequest.prototype.toObject = functi
  */
 proto.agricultural.robot.navigation.v1.GetMapRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-mapType: jspb.Message.getFieldWithDefault(msg, 2, 0),
-frameId: (f = jspb.Message.getField(msg, 3)) == null ? undefined : f
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    mapType: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    frameId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1654,9 +1654,9 @@ proto.agricultural.robot.navigation.v1.SetMapRequest.prototype.toObject = functi
  */
 proto.agricultural.robot.navigation.v1.SetMapRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-mapData: (f = msg.getMapData()) && proto.agricultural.robot.navigation.v1.OccupancyGridMap.toObject(includeInstance, f),
-metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    mapData: (f = msg.getMapData()) && proto.agricultural.robot.navigation.v1.OccupancyGridMap.toObject(includeInstance, f),
+    metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1886,8 +1886,8 @@ proto.agricultural.robot.navigation.v1.UpdateMapRequest.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.UpdateMapRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-update: (f = msg.getUpdate()) && proto.agricultural.robot.navigation.v1.MapUpdate.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    update: (f = msg.getUpdate()) && proto.agricultural.robot.navigation.v1.MapUpdate.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2067,8 +2067,8 @@ proto.agricultural.robot.navigation.v1.ClearMapRequest.prototype.toObject = func
  */
 proto.agricultural.robot.navigation.v1.ClearMapRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-mapType: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    mapType: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -2227,11 +2227,11 @@ proto.agricultural.robot.navigation.v1.MapResponse.prototype.toObject = function
  */
 proto.agricultural.robot.navigation.v1.MapResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-mapData: (f = msg.getMapData()) && proto.agricultural.robot.navigation.v1.OccupancyGridMap.toObject(includeInstance, f),
-metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    mapData: (f = msg.getMapData()) && proto.agricultural.robot.navigation.v1.OccupancyGridMap.toObject(includeInstance, f),
+    metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2540,9 +2540,9 @@ proto.agricultural.robot.navigation.v1.OccupancyGridMap.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.OccupancyGridMap.toObject = function(includeInstance, msg) {
   var f, obj = {
-info: (f = msg.getInfo()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f),
-data: msg.getData_asB64(),
-encoding: jspb.Message.getFieldWithDefault(msg, 3, "")
+    info: (f = msg.getInfo()) && proto.agricultural.robot.navigation.v1.MapMetadata.toObject(includeInstance, f),
+    data: msg.getData_asB64(),
+    encoding: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -2775,14 +2775,14 @@ proto.agricultural.robot.navigation.v1.MapMetadata.prototype.toObject = function
  */
 proto.agricultural.robot.navigation.v1.MapMetadata.toObject = function(includeInstance, msg) {
   var f, obj = {
-mapLoadTime: (f = msg.getMapLoadTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-resolution: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-width: jspb.Message.getFieldWithDefault(msg, 3, 0),
-height: jspb.Message.getFieldWithDefault(msg, 4, 0),
-origin: (f = msg.getOrigin()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 6, ""),
-version: jspb.Message.getFieldWithDefault(msg, 7, 0),
-source: jspb.Message.getFieldWithDefault(msg, 8, 0)
+    mapLoadTime: (f = msg.getMapLoadTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    resolution: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    width: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    height: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    origin: (f = msg.getOrigin()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    version: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    source: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -3157,9 +3157,9 @@ proto.agricultural.robot.navigation.v1.MapUpdate.prototype.toObject = function(o
  */
 proto.agricultural.robot.navigation.v1.MapUpdate.toObject = function(includeInstance, msg) {
   var f, obj = {
-updateRegion: (f = msg.getUpdateRegion()) && proto.agricultural.robot.navigation.v1.Rectangle.toObject(includeInstance, f),
-data: msg.getData_asB64(),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    updateRegion: (f = msg.getUpdateRegion()) && proto.agricultural.robot.navigation.v1.Rectangle.toObject(includeInstance, f),
+    data: msg.getData_asB64(),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3413,8 +3413,8 @@ proto.agricultural.robot.navigation.v1.Rectangle.prototype.toObject = function(o
  */
 proto.agricultural.robot.navigation.v1.Rectangle.toObject = function(includeInstance, msg) {
   var f, obj = {
-min: (f = msg.getMin()) && proto.agricultural.robot.navigation.v1.Point2D.toObject(includeInstance, f),
-max: (f = msg.getMax()) && proto.agricultural.robot.navigation.v1.Point2D.toObject(includeInstance, f)
+    min: (f = msg.getMin()) && proto.agricultural.robot.navigation.v1.Point2D.toObject(includeInstance, f),
+    max: (f = msg.getMax()) && proto.agricultural.robot.navigation.v1.Point2D.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3615,8 +3615,8 @@ proto.agricultural.robot.navigation.v1.GetPositionRequest.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.GetPositionRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-frameId: jspb.Message.getFieldWithDefault(msg, 2, "")
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    frameId: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -3775,9 +3775,9 @@ proto.agricultural.robot.navigation.v1.SetPositionRequest.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.SetPositionRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 3, "")
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -3986,9 +3986,9 @@ proto.agricultural.robot.navigation.v1.StreamPositionRequest.prototype.toObject 
  */
 proto.agricultural.robot.navigation.v1.StreamPositionRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-frameId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-frequencyHz: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    frameId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    frequencyHz: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -4176,10 +4176,10 @@ proto.agricultural.robot.navigation.v1.PositionResponse.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.PositionResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4438,12 +4438,12 @@ proto.agricultural.robot.navigation.v1.PositionUpdate.prototype.toObject = funct
  */
 proto.agricultural.robot.navigation.v1.PositionUpdate.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-velocity: (f = msg.getVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 4, ""),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-quality: (f = msg.getQuality()) && proto.agricultural.robot.navigation.v1.LocalizationQuality.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    velocity: (f = msg.getVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    quality: (f = msg.getQuality()) && proto.agricultural.robot.navigation.v1.LocalizationQuality.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4802,8 +4802,8 @@ proto.agricultural.robot.navigation.v1.Pose.prototype.toObject = function(opt_in
  */
 proto.agricultural.robot.navigation.v1.Pose.toObject = function(includeInstance, msg) {
   var f, obj = {
-position: (f = msg.getPosition()) && proto.agricultural.robot.navigation.v1.Point3D.toObject(includeInstance, f),
-orientation: (f = msg.getOrientation()) && proto.agricultural.robot.navigation.v1.Quaternion.toObject(includeInstance, f)
+    position: (f = msg.getPosition()) && proto.agricultural.robot.navigation.v1.Point3D.toObject(includeInstance, f),
+    orientation: (f = msg.getOrientation()) && proto.agricultural.robot.navigation.v1.Quaternion.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -5011,8 +5011,8 @@ proto.agricultural.robot.navigation.v1.PoseWithCovariance.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject = function(includeInstance, msg) {
   var f, obj = {
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
-covarianceList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 2)) == null ? undefined : f
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
+    covarianceList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 2)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -5213,8 +5213,8 @@ proto.agricultural.robot.navigation.v1.Point2D.prototype.toObject = function(opt
  */
 proto.agricultural.robot.navigation.v1.Point2D.toObject = function(includeInstance, msg) {
   var f, obj = {
-x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0)
+    x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0)
   };
 
   if (includeInstance) {
@@ -5373,9 +5373,9 @@ proto.agricultural.robot.navigation.v1.Point3D.prototype.toObject = function(opt
  */
 proto.agricultural.robot.navigation.v1.Point3D.toObject = function(includeInstance, msg) {
   var f, obj = {
-x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
+    x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
   };
 
   if (includeInstance) {
@@ -5563,10 +5563,10 @@ proto.agricultural.robot.navigation.v1.Quaternion.prototype.toObject = function(
  */
 proto.agricultural.robot.navigation.v1.Quaternion.toObject = function(includeInstance, msg) {
   var f, obj = {
-x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-w: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
+    x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    w: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
   };
 
   if (includeInstance) {
@@ -5783,8 +5783,8 @@ proto.agricultural.robot.navigation.v1.Twist.prototype.toObject = function(opt_i
  */
 proto.agricultural.robot.navigation.v1.Twist.toObject = function(includeInstance, msg) {
   var f, obj = {
-linear: (f = msg.getLinear()) && proto.agricultural.robot.navigation.v1.Vector3.toObject(includeInstance, f),
-angular: (f = msg.getAngular()) && proto.agricultural.robot.navigation.v1.Vector3.toObject(includeInstance, f)
+    linear: (f = msg.getLinear()) && proto.agricultural.robot.navigation.v1.Vector3.toObject(includeInstance, f),
+    angular: (f = msg.getAngular()) && proto.agricultural.robot.navigation.v1.Vector3.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -5985,9 +5985,9 @@ proto.agricultural.robot.navigation.v1.Vector3.prototype.toObject = function(opt
  */
 proto.agricultural.robot.navigation.v1.Vector3.toObject = function(includeInstance, msg) {
   var f, obj = {
-x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
+    x: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    y: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    z: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0)
   };
 
   if (includeInstance) {
@@ -6175,12 +6175,12 @@ proto.agricultural.robot.navigation.v1.VelocityCommand.prototype.toObject = func
  */
 proto.agricultural.robot.navigation.v1.VelocityCommand.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-cmdVel: (f = msg.getCmdVel()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
-timeout: (f = msg.getTimeout()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-joystickInput: (f = msg.getJoystickInput()) && proto.agricultural.robot.navigation.v1.JoystickInput.toObject(includeInstance, f),
-safety: (f = msg.getSafety()) && proto.agricultural.robot.navigation.v1.SafetyConstraints.toObject(includeInstance, f),
-controlMode: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    cmdVel: (f = msg.getCmdVel()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
+    timeout: (f = msg.getTimeout()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    joystickInput: (f = msg.getJoystickInput()) && proto.agricultural.robot.navigation.v1.JoystickInput.toObject(includeInstance, f),
+    safety: (f = msg.getSafety()) && proto.agricultural.robot.navigation.v1.SafetyConstraints.toObject(includeInstance, f),
+    controlMode: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -6546,10 +6546,10 @@ proto.agricultural.robot.navigation.v1.JoystickInput.prototype.toObject = functi
  */
 proto.agricultural.robot.navigation.v1.JoystickInput.toObject = function(includeInstance, msg) {
   var f, obj = {
-axesList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 1)) == null ? undefined : f,
-buttonsList: (f = jspb.Message.getRepeatedBooleanField(msg, 2)) == null ? undefined : f,
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-controllerId: jspb.Message.getFieldWithDefault(msg, 4, "")
+    axesList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 1)) == null ? undefined : f,
+    buttonsList: (f = jspb.Message.getRepeatedBooleanField(msg, 2)) == null ? undefined : f,
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    controllerId: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -6836,11 +6836,11 @@ proto.agricultural.robot.navigation.v1.VelocityResponse.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.VelocityResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-actualVelocity: (f = msg.getActualVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-safetyViolationsList: jspb.Message.toObjectList(msg.getSafetyViolationsList(),
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    actualVelocity: (f = msg.getActualVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    safetyViolationsList: jspb.Message.toObjectList(msg.getSafetyViolationsList(),
     proto.agricultural.robot.navigation.v1.SafetyViolation.toObject, includeInstance)
   };
 
@@ -7151,8 +7151,8 @@ proto.agricultural.robot.navigation.v1.StopMovementRequest.prototype.toObject = 
  */
 proto.agricultural.robot.navigation.v1.StopMovementRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-stopType: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    stopType: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -7318,12 +7318,12 @@ proto.agricultural.robot.navigation.v1.SafetyConstraints.prototype.toObject = fu
  */
 proto.agricultural.robot.navigation.v1.SafetyConstraints.toObject = function(includeInstance, msg) {
   var f, obj = {
-maxLinearVelocity: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-maxAngularVelocity: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-maxAcceleration: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-obstacleAvoidanceEnabled: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-safetyMargin: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-forbiddenZonesList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
+    maxLinearVelocity: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    maxAngularVelocity: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    maxAcceleration: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    obstacleAvoidanceEnabled: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+    safetyMargin: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    forbiddenZonesList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -7617,10 +7617,10 @@ proto.agricultural.robot.navigation.v1.SafetyViolation.prototype.toObject = func
  */
 proto.agricultural.robot.navigation.v1.SafetyViolation.toObject = function(includeInstance, msg) {
   var f, obj = {
-type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-description: jspb.Message.getFieldWithDefault(msg, 2, ""),
-severity: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-detectedAt: (f = msg.getDetectedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    description: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    severity: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    detectedAt: (f = msg.getDetectedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -7865,14 +7865,14 @@ proto.agricultural.robot.navigation.v1.NavigationGoal.prototype.toObject = funct
  */
 proto.agricultural.robot.navigation.v1.NavigationGoal.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-goalId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-targetPose: (f = msg.getTargetPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 4, ""),
-options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.NavigationOptions.toObject(includeInstance, f),
-waypointsList: jspb.Message.toObjectList(msg.getWaypointsList(),
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    goalId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    targetPose: (f = msg.getTargetPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.NavigationOptions.toObject(includeInstance, f),
+    waypointsList: jspb.Message.toObjectList(msg.getWaypointsList(),
     proto.agricultural.robot.navigation.v1.Waypoint.toObject, includeInstance),
-deadline: (f = msg.getDeadline()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    deadline: (f = msg.getDeadline()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -8268,12 +8268,12 @@ proto.agricultural.robot.navigation.v1.TrajectoryCommand.prototype.toObject = fu
  */
 proto.agricultural.robot.navigation.v1.TrajectoryCommand.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-trajectoryId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-pointsList: jspb.Message.toObjectList(msg.getPointsList(),
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    trajectoryId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    pointsList: jspb.Message.toObjectList(msg.getPointsList(),
     proto.agricultural.robot.navigation.v1.TrajectoryPoint.toObject, includeInstance),
-options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.TrajectoryOptions.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 5, "")
+    options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.TrajectoryOptions.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -8569,11 +8569,11 @@ proto.agricultural.robot.navigation.v1.Waypoint.prototype.toObject = function(op
  */
 proto.agricultural.robot.navigation.v1.Waypoint.toObject = function(includeInstance, msg) {
   var f, obj = {
-waypointId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-type: jspb.Message.getFieldWithDefault(msg, 3, 0),
-maxDurationAtWaypoint: (f = msg.getMaxDurationAtWaypoint()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-actionsList: jspb.Message.toObjectList(msg.getActionsList(),
+    waypointId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    type: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    maxDurationAtWaypoint: (f = msg.getMaxDurationAtWaypoint()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    actionsList: jspb.Message.toObjectList(msg.getActionsList(),
     proto.agricultural.robot.navigation.v1.WaypointAction.toObject, includeInstance)
   };
 
@@ -8891,10 +8891,10 @@ proto.agricultural.robot.navigation.v1.TrajectoryPoint.prototype.toObject = func
  */
 proto.agricultural.robot.navigation.v1.TrajectoryPoint.toObject = function(includeInstance, msg) {
   var f, obj = {
-pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
-velocity: (f = msg.getVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
-timeFromStart: (f = msg.getTimeFromStart()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-accelerationsList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 4)) == null ? undefined : f
+    pose: (f = msg.getPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f),
+    velocity: (f = msg.getVelocity()) && proto.agricultural.robot.navigation.v1.Twist.toObject(includeInstance, f),
+    timeFromStart: (f = msg.getTimeFromStart()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    accelerationsList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 4)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -9202,14 +9202,14 @@ proto.agricultural.robot.navigation.v1.NavigationOptions.prototype.toObject = fu
  */
 proto.agricultural.robot.navigation.v1.NavigationOptions.toObject = function(includeInstance, msg) {
   var f, obj = {
-planner: jspb.Message.getFieldWithDefault(msg, 1, 0),
-toleranceLinear: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-toleranceAngular: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-useObstacleAvoidance: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-avoidZonesList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
-behavior: jspb.Message.getFieldWithDefault(msg, 6, 0),
-maxPlanningTimeMs: jspb.Message.getFieldWithDefault(msg, 7, 0),
-maxRetries: jspb.Message.getFieldWithDefault(msg, 8, 0)
+    planner: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    toleranceLinear: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    toleranceAngular: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    useObstacleAvoidance: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+    avoidZonesList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
+    behavior: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    maxPlanningTimeMs: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    maxRetries: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -9561,10 +9561,10 @@ proto.agricultural.robot.navigation.v1.TrajectoryOptions.prototype.toObject = fu
  */
 proto.agricultural.robot.navigation.v1.TrajectoryOptions.toObject = function(includeInstance, msg) {
   var f, obj = {
-interpolatePath: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-velocityScaling: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-checkCollisions: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
-executionMode: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    interpolatePath: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    velocityScaling: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    checkCollisions: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
+    executionMode: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -9781,9 +9781,9 @@ proto.agricultural.robot.navigation.v1.WaypointAction.prototype.toObject = funct
  */
 proto.agricultural.robot.navigation.v1.WaypointAction.toObject = function(includeInstance, msg) {
   var f, obj = {
-type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-duration: (f = msg.getDuration()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    duration: (f = msg.getDuration()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
   };
 
   if (includeInstance) {
@@ -9960,8 +9960,7 @@ proto.agricultural.robot.navigation.v1.WaypointAction.prototype.getParametersMap
  */
 proto.agricultural.robot.navigation.v1.WaypointAction.prototype.clearParametersMap = function() {
   this.getParametersMap().clear();
-  return this;
-};
+  return this;};
 
 
 
@@ -9996,8 +9995,8 @@ proto.agricultural.robot.navigation.v1.CancelGoalRequest.prototype.toObject = fu
  */
 proto.agricultural.robot.navigation.v1.CancelGoalRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-goalId: (f = jspb.Message.getField(msg, 2)) == null ? undefined : f
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    goalId: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -10174,7 +10173,7 @@ proto.agricultural.robot.navigation.v1.GetNavigationStatusRequest.prototype.toOb
  */
 proto.agricultural.robot.navigation.v1.GetNavigationStatusRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, "")
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -10304,8 +10303,8 @@ proto.agricultural.robot.navigation.v1.StreamNavigationStatusRequest.prototype.t
  */
 proto.agricultural.robot.navigation.v1.StreamNavigationStatusRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-frequencyHz: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    frequencyHz: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -10464,11 +10463,11 @@ proto.agricultural.robot.navigation.v1.NavigationResponse.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.NavigationResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-goalId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: jspb.Message.getFieldWithDefault(msg, 4, 0),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    goalId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    result: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -10742,12 +10741,12 @@ proto.agricultural.robot.navigation.v1.NavigationStatusResponse.prototype.toObje
  */
 proto.agricultural.robot.navigation.v1.NavigationStatusResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-status: jspb.Message.getFieldWithDefault(msg, 1, 0),
-progress: (f = msg.getProgress()) && proto.agricultural.robot.navigation.v1.NavigationProgress.toObject(includeInstance, f),
-currentGoal: (f = msg.getCurrentGoal()) && proto.agricultural.robot.navigation.v1.NavigationGoal.toObject(includeInstance, f),
-errorsList: jspb.Message.toObjectList(msg.getErrorsList(),
+    status: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    progress: (f = msg.getProgress()) && proto.agricultural.robot.navigation.v1.NavigationProgress.toObject(includeInstance, f),
+    currentGoal: (f = msg.getCurrentGoal()) && proto.agricultural.robot.navigation.v1.NavigationGoal.toObject(includeInstance, f),
+    errorsList: jspb.Message.toObjectList(msg.getErrorsList(),
     proto.agricultural.robot.navigation.v1.NavigationError.toObject, includeInstance),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -11078,11 +11077,11 @@ proto.agricultural.robot.navigation.v1.NavigationStatusUpdate.prototype.toObject
  */
 proto.agricultural.robot.navigation.v1.NavigationStatusUpdate.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-status: jspb.Message.getFieldWithDefault(msg, 2, 0),
-progress: (f = msg.getProgress()) && proto.agricultural.robot.navigation.v1.NavigationProgress.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-error: (f = msg.getError()) && proto.agricultural.robot.navigation.v1.NavigationError.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    progress: (f = msg.getProgress()) && proto.agricultural.robot.navigation.v1.NavigationProgress.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    error: (f = msg.getError()) && proto.agricultural.robot.navigation.v1.NavigationError.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -11391,13 +11390,13 @@ proto.agricultural.robot.navigation.v1.NavigationProgress.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.NavigationProgress.toObject = function(includeInstance, msg) {
   var f, obj = {
-distanceRemaining: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-distanceTraveled: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-timeRemaining: (f = msg.getTimeRemaining()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-timeElapsed: (f = msg.getTimeElapsed()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-currentWaypointIndex: jspb.Message.getFieldWithDefault(msg, 5, 0),
-totalWaypoints: jspb.Message.getFieldWithDefault(msg, 6, 0),
-completionPercentage: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0)
+    distanceRemaining: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    distanceTraveled: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    timeRemaining: (f = msg.getTimeRemaining()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    timeElapsed: (f = msg.getTimeElapsed()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    currentWaypointIndex: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    totalWaypoints: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    completionPercentage: jspb.Message.getFloatingPointFieldWithDefault(msg, 7, 0.0)
   };
 
   if (includeInstance) {
@@ -11750,11 +11749,11 @@ proto.agricultural.robot.navigation.v1.NavigationError.prototype.toObject = func
  */
 proto.agricultural.robot.navigation.v1.NavigationError.toObject = function(includeInstance, msg) {
   var f, obj = {
-code: jspb.Message.getFieldWithDefault(msg, 1, 0),
-description: jspb.Message.getFieldWithDefault(msg, 2, ""),
-occurredAt: (f = msg.getOccurredAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-recoverable: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-suggestedActionsList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    description: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    occurredAt: (f = msg.getOccurredAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    recoverable: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+    suggestedActionsList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -12040,8 +12039,8 @@ proto.agricultural.robot.navigation.v1.GetCameraInfoRequest.prototype.toObject =
  */
 proto.agricultural.robot.navigation.v1.GetCameraInfoRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-cameraId: jspb.Message.getFieldWithDefault(msg, 2, "")
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    cameraId: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -12200,9 +12199,9 @@ proto.agricultural.robot.navigation.v1.StreamVideoRequest.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.StreamVideoRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-cameraId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.VideoStreamOptions.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    cameraId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    options: (f = msg.getOptions()) && proto.agricultural.robot.navigation.v1.VideoStreamOptions.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12411,9 +12410,9 @@ proto.agricultural.robot.navigation.v1.CameraControlRequest.prototype.toObject =
  */
 proto.agricultural.robot.navigation.v1.CameraControlRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-cameraId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-command: (f = msg.getCommand()) && proto.agricultural.robot.navigation.v1.CameraControlCommand.toObject(includeInstance, f)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    cameraId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    command: (f = msg.getCommand()) && proto.agricultural.robot.navigation.v1.CameraControlCommand.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12629,11 +12628,11 @@ proto.agricultural.robot.navigation.v1.CameraInfoResponse.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.CameraInfoResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-camerasList: jspb.Message.toObjectList(msg.getCamerasList(),
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    camerasList: jspb.Message.toObjectList(msg.getCamerasList(),
     proto.agricultural.robot.navigation.v1.CameraInfo.toObject, includeInstance),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12900,16 +12899,16 @@ proto.agricultural.robot.navigation.v1.CameraInfo.prototype.toObject = function(
  */
 proto.agricultural.robot.navigation.v1.CameraInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
-cameraId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-name: jspb.Message.getFieldWithDefault(msg, 2, ""),
-type: jspb.Message.getFieldWithDefault(msg, 3, 0),
-resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
-framerate: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-intrinsics: (f = msg.getIntrinsics()) && proto.agricultural.robot.navigation.v1.CameraIntrinsics.toObject(includeInstance, f),
-distortion: (f = msg.getDistortion()) && proto.agricultural.robot.navigation.v1.CameraDistortion.toObject(includeInstance, f),
-frameId: jspb.Message.getFieldWithDefault(msg, 8, ""),
-status: jspb.Message.getFieldWithDefault(msg, 9, 0),
-supportedFormatsList: (f = jspb.Message.getRepeatedField(msg, 10)) == null ? undefined : f
+    cameraId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    type: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
+    framerate: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    intrinsics: (f = msg.getIntrinsics()) && proto.agricultural.robot.navigation.v1.CameraIntrinsics.toObject(includeInstance, f),
+    distortion: (f = msg.getDistortion()) && proto.agricultural.robot.navigation.v1.CameraDistortion.toObject(includeInstance, f),
+    frameId: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    supportedFormatsList: (f = jspb.Message.getRepeatedField(msg, 10)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -13384,13 +13383,13 @@ proto.agricultural.robot.navigation.v1.VideoFrame.prototype.toObject = function(
  */
 proto.agricultural.robot.navigation.v1.VideoFrame.toObject = function(includeInstance, msg) {
   var f, obj = {
-cameraId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-imageData: msg.getImageData_asB64(),
-format: jspb.Message.getFieldWithDefault(msg, 3, 0),
-resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-frameNumber: jspb.Message.getFieldWithDefault(msg, 6, 0),
-metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.FrameMetadata.toObject(includeInstance, f)
+    cameraId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    imageData: msg.getImageData_asB64(),
+    format: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    frameNumber: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    metadata: (f = msg.getMetadata()) && proto.agricultural.robot.navigation.v1.FrameMetadata.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -13788,12 +13787,12 @@ proto.agricultural.robot.navigation.v1.VideoStreamOptions.prototype.toObject = f
  */
 proto.agricultural.robot.navigation.v1.VideoStreamOptions.toObject = function(includeInstance, msg) {
   var f, obj = {
-format: jspb.Message.getFieldWithDefault(msg, 1, 0),
-resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
-framerate: jspb.Message.getFieldWithDefault(msg, 3, 0),
-quality: jspb.Message.getFieldWithDefault(msg, 4, 0),
-enableCompression: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
-overlaysList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
+    format: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    resolution: (f = msg.getResolution()) && proto.agricultural.robot.navigation.v1.Resolution.toObject(includeInstance, f),
+    framerate: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    quality: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    enableCompression: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    overlaysList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -14110,8 +14109,8 @@ proto.agricultural.robot.navigation.v1.CameraControlCommand.prototype.toObject =
  */
 proto.agricultural.robot.navigation.v1.CameraControlCommand.toObject = function(includeInstance, msg) {
   var f, obj = {
-type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
   };
 
   if (includeInstance) {
@@ -14238,8 +14237,7 @@ proto.agricultural.robot.navigation.v1.CameraControlCommand.prototype.getParamet
  */
 proto.agricultural.robot.navigation.v1.CameraControlCommand.prototype.clearParametersMap = function() {
   this.getParametersMap().clear();
-  return this;
-};
+  return this;};
 
 
 
@@ -14274,10 +14272,10 @@ proto.agricultural.robot.navigation.v1.CameraControlResponse.prototype.toObject 
  */
 proto.agricultural.robot.navigation.v1.CameraControlResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-currentSettingsMap: (f = msg.getCurrentSettingsMap()) ? f.toObject(includeInstance, undefined) : [],
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    currentSettingsMap: (f = msg.getCurrentSettingsMap()) ? f.toObject(includeInstance, undefined) : [],
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -14446,8 +14444,7 @@ proto.agricultural.robot.navigation.v1.CameraControlResponse.prototype.getCurren
  */
 proto.agricultural.robot.navigation.v1.CameraControlResponse.prototype.clearCurrentSettingsMap = function() {
   this.getCurrentSettingsMap().clear();
-  return this;
-};
+  return this;};
 
 
 /**
@@ -14519,8 +14516,8 @@ proto.agricultural.robot.navigation.v1.Resolution.prototype.toObject = function(
  */
 proto.agricultural.robot.navigation.v1.Resolution.toObject = function(includeInstance, msg) {
   var f, obj = {
-width: jspb.Message.getFieldWithDefault(msg, 1, 0),
-height: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    width: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    height: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -14686,11 +14683,11 @@ proto.agricultural.robot.navigation.v1.CameraIntrinsics.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.CameraIntrinsics.toObject = function(includeInstance, msg) {
   var f, obj = {
-focalLengthX: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-focalLengthY: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-principalPointX: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-principalPointY: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-cameraMatrixList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 5)) == null ? undefined : f
+    focalLengthX: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    focalLengthY: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    principalPointX: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    principalPointY: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+    cameraMatrixList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 5)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -14964,8 +14961,8 @@ proto.agricultural.robot.navigation.v1.CameraDistortion.prototype.toObject = fun
  */
 proto.agricultural.robot.navigation.v1.CameraDistortion.toObject = function(includeInstance, msg) {
   var f, obj = {
-model: jspb.Message.getFieldWithDefault(msg, 1, 0),
-coefficientsList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 2)) == null ? undefined : f
+    model: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    coefficientsList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 2)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -15145,11 +15142,11 @@ proto.agricultural.robot.navigation.v1.FrameMetadata.prototype.toObject = functi
  */
 proto.agricultural.robot.navigation.v1.FrameMetadata.toObject = function(includeInstance, msg) {
   var f, obj = {
-exposureTime: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-gain: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-whiteBalance: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-captureTime: (f = msg.getCaptureTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-cameraPose: (f = msg.getCameraPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f)
+    exposureTime: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    gain: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    whiteBalance: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    captureTime: (f = msg.getCaptureTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    cameraPose: (f = msg.getCameraPose()) && proto.agricultural.robot.navigation.v1.Pose.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -15437,7 +15434,7 @@ proto.agricultural.robot.navigation.v1.GetLocalizationStatusRequest.prototype.to
  */
 proto.agricultural.robot.navigation.v1.GetLocalizationStatusRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, "")
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -15567,10 +15564,10 @@ proto.agricultural.robot.navigation.v1.InitializeLocalizationRequest.prototype.t
  */
 proto.agricultural.robot.navigation.v1.InitializeLocalizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-initialPose: (f = msg.getInitialPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-method: jspb.Message.getFieldWithDefault(msg, 3, 0),
-parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    initialPose: (f = msg.getInitialPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    method: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    parametersMap: (f = msg.getParametersMap()) ? f.toObject(includeInstance, undefined) : []
   };
 
   if (includeInstance) {
@@ -15776,8 +15773,7 @@ proto.agricultural.robot.navigation.v1.InitializeLocalizationRequest.prototype.g
  */
 proto.agricultural.robot.navigation.v1.InitializeLocalizationRequest.prototype.clearParametersMap = function() {
   this.getParametersMap().clear();
-  return this;
-};
+  return this;};
 
 
 
@@ -15812,8 +15808,8 @@ proto.agricultural.robot.navigation.v1.ResetLocalizationRequest.prototype.toObje
  */
 proto.agricultural.robot.navigation.v1.ResetLocalizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-clearMap: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
+    robotId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    clearMap: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -15972,12 +15968,12 @@ proto.agricultural.robot.navigation.v1.LocalizationStatusResponse.prototype.toOb
  */
 proto.agricultural.robot.navigation.v1.LocalizationStatusResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-status: jspb.Message.getFieldWithDefault(msg, 1, 0),
-quality: (f = msg.getQuality()) && proto.agricultural.robot.navigation.v1.LocalizationQuality.toObject(includeInstance, f),
-currentPose: (f = msg.getCurrentPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
-method: jspb.Message.getFieldWithDefault(msg, 4, 0),
-metrics: (f = msg.getMetrics()) && proto.agricultural.robot.navigation.v1.LocalizationMetrics.toObject(includeInstance, f),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    status: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    quality: (f = msg.getQuality()) && proto.agricultural.robot.navigation.v1.LocalizationQuality.toObject(includeInstance, f),
+    currentPose: (f = msg.getCurrentPose()) && proto.agricultural.robot.navigation.v1.PoseWithCovariance.toObject(includeInstance, f),
+    method: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    metrics: (f = msg.getMetrics()) && proto.agricultural.robot.navigation.v1.LocalizationMetrics.toObject(includeInstance, f),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -16336,10 +16332,10 @@ proto.agricultural.robot.navigation.v1.LocalizationResponse.prototype.toObject =
  */
 proto.agricultural.robot.navigation.v1.LocalizationResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-message: jspb.Message.getFieldWithDefault(msg, 2, ""),
-status: jspb.Message.getFieldWithDefault(msg, 3, 0),
-timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    message: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -16577,12 +16573,12 @@ proto.agricultural.robot.navigation.v1.LocalizationQuality.prototype.toObject = 
  */
 proto.agricultural.robot.navigation.v1.LocalizationQuality.toObject = function(includeInstance, msg) {
   var f, obj = {
-confidence: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
-positionUncertainty: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-orientationUncertainty: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-matchedFeatures: jspb.Message.getFieldWithDefault(msg, 4, 0),
-driftEstimate: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-health: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    confidence: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    positionUncertainty: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    orientationUncertainty: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    matchedFeatures: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    driftEstimate: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    health: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -16857,12 +16853,12 @@ proto.agricultural.robot.navigation.v1.LocalizationMetrics.prototype.toObject = 
  */
 proto.agricultural.robot.navigation.v1.LocalizationMetrics.toObject = function(includeInstance, msg) {
   var f, obj = {
-particleCount: jspb.Message.getFieldWithDefault(msg, 1, 0),
-effectiveSampleSize: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-convergenceRate: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
-updateFrequency: (f = msg.getUpdateFrequency()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-sensorUpdatesCount: jspb.Message.getFieldWithDefault(msg, 5, 0),
-mapMatchScore: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0)
+    particleCount: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    effectiveSampleSize: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
+    convergenceRate: jspb.Message.getFloatingPointFieldWithDefault(msg, 3, 0.0),
+    updateFrequency: (f = msg.getUpdateFrequency()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
+    sensorUpdatesCount: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    mapMatchScore: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0)
   };
 
   if (includeInstance) {
