@@ -1,37 +1,21 @@
 #!/bin/bash
 set -e
 
-echo "🔄 Generating TypeScript protobuf code..."
+echo "🔄 Generating protobuf code for all languages..."
 
-# Generate TypeScript
-buf generate --template buf.gen.yaml --include-imports
+# Generate all languages using buf
+buf generate
 
-# Create package.json for generated code
-cat > generated/typescript/package.json << EOF
-{
-  "name": "@agricultural-robot/protos-ts",
-  "version": "$(git describe --tags --always)",
-  "description": "TypeScript protobuf definitions for Agricultural Robot Platform",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "files": ["**/*.js", "**/*.d.ts"],
-  "dependencies": {
-    "@connectrpc/connect": "^1.0.0",
-    "@bufbuild/protobuf": "^1.0.0"
-  },
-  "repository": "https://github.com/ValenTech-Industries/agricultural-robot-protos",
-  "license": "MIT"
-}
-EOF
+# Run additional TypeScript setup if the script exists
+if [ -f "scripts/generate-typescript.sh" ]; then
+    echo "📦 Setting up TypeScript package..."
+    ./scripts/generate-typescript.sh
+fi
 
-# Create index file
-cat > generated/typescript/index.ts << EOF
-// Export all generated protobuf types
-export * from './robot/navigation/navigation_pb.js';
-export * from './robot/control/movement_pb.js';
-export * from './robot/telemetry/status_pb.js';
-export * from './common/types_pb.js';
-// Add more exports as needed
-EOF
+# Run additional Python setup if the script exists  
+if [ -f "scripts/generate-python.sh" ]; then
+    echo "📦 Setting up Python package..."
+    ./scripts/generate-python.sh
+fi
 
-echo "✅ TypeScript generation complete!"
+echo "✅ All protobuf generation complete!"

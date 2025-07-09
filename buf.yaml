@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/ValenTech-Industries/agricultural-robot-protos
+name: buf.build/your-org/agricultural-robot-protos
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/protocolbuffers/wellknowntypes

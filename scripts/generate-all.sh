@@ -8,12 +8,9 @@ buf generate
 
 # Create language-specific packages
 echo "📦 Creating TypeScript package..."
-./scripts/package-typescript.sh
+./scripts/generate-typescript.sh
 
 echo "📦 Creating Python package..."
-./scripts/package-python.sh
-
-echo "📦 Creating C++ package..."
-./scripts/package-cpp.sh
+./scripts/generate-python.sh
 
 echo "✅ All protobuf generation complete!"
