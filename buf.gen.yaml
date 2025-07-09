@@ -1,0 +1,44 @@
+version: v1
+managed:
+  enabled: true
+  cc_enable_arenas: false
+  java_multiple_files: true
+  java_string_check_utf8: true
+  java_package_prefix: com.agricultural.robot.proto
+  go_package_prefix: github.com/ValenTech-Industries/agricultural-robot-protos/generated/go
+plugins:
+  # TypeScript/JavaScript
+  - plugin: es
+    out: generated/typescript
+    opt: target=ts,import_extension=none
+  - plugin: connect-es
+    out: generated/typescript
+    opt: target=ts
+  
+  # Python
+  - plugin: python
+    out: generated/python
+  - plugin: pyi
+    out: generated/python
+  - plugin: grpc_python
+    out: generated/python
+  
+  # C++
+  - plugin: cpp
+    out: generated/cpp
+  - plugin: grpc_cpp
+    out: generated/cpp
+  
+  # Go
+  - plugin: go
+    out: generated/go
+    opt: paths=source_relative
+  - plugin: go-grpc
+    out: generated/go
+    opt: paths=source_relative
+  
+  # Rust
+  - plugin: rust
+    out: generated/rust
+  - plugin: grpc-rust
+    out: generated/rust

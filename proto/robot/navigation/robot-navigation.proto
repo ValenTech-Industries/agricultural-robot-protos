@@ -1,0 +1,709 @@
+syntax = "proto3";
+
+package agricultural.robot.navigation.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/valencloud/agricultural-platform/proto/robot/navigation/v1;navigationv1";
+option java_multiple_files = true;
+option java_package = "com.valencloud.agricultural.robot.navigation.v1";
+option java_outer_classname = "RobotNavigationProto";
+
+service RobotNavigationService {
+  // Map Management
+  rpc GetMap(GetMapRequest) returns (MapResponse);
+  rpc SetMap(SetMapRequest) returns (MapResponse);
+  rpc UpdateMap(UpdateMapRequest) returns (MapResponse);
+  rpc ClearMap(ClearMapRequest) returns (google.protobuf.Empty);
+
+  // Position Management
+  rpc GetPosition(GetPositionRequest) returns (PositionResponse);
+  rpc SetPosition(SetPositionRequest) returns (PositionResponse);
+  rpc StreamPosition(StreamPositionRequest) returns (stream PositionUpdate);
+
+  // Manual Control (Joystick)
+  rpc SendVelocityCommand(VelocityCommand) returns (VelocityResponse);
+  rpc StreamVelocityCommands(stream VelocityCommand) returns (stream VelocityResponse);
+  rpc StopMovement(StopMovementRequest) returns (VelocityResponse);
+
+  // Autonomous Navigation
+  rpc SendGoal(NavigationGoal) returns (NavigationResponse);
+  rpc SendTrajectory(TrajectoryCommand) returns (NavigationResponse);
+  rpc CancelGoal(CancelGoalRequest) returns (NavigationResponse);
+  rpc GetNavigationStatus(GetNavigationStatusRequest) returns (NavigationStatusResponse);
+  rpc StreamNavigationStatus(StreamNavigationStatusRequest) returns (stream NavigationStatusUpdate);
+
+  // Camera and Video Streaming
+  rpc GetCameraInfo(GetCameraInfoRequest) returns (CameraInfoResponse);
+  rpc StreamVideo(StreamVideoRequest) returns (stream VideoFrame);
+  rpc ControlCamera(CameraControlRequest) returns (CameraControlResponse);
+
+  // Localization and SLAM
+  rpc GetLocalizationStatus(GetLocalizationStatusRequest) returns (LocalizationStatusResponse);
+  rpc InitializeLocalization(InitializeLocalizationRequest) returns (LocalizationResponse);
+  rpc ResetLocalization(ResetLocalizationRequest) returns (LocalizationResponse);
+}
+
+// =============================================================================
+// MAP MANAGEMENT MESSAGES
+// =============================================================================
+
+message GetMapRequest {
+  string robot_id = 1;
+  MapType map_type = 2;
+  optional string frame_id = 3;
+}
+
+message SetMapRequest {
+  string robot_id = 1;
+  OccupancyGridMap map_data = 2;
+  MapMetadata metadata = 3;
+}
+
+message UpdateMapRequest {
+  string robot_id = 1;
+  MapUpdate update = 2;
+}
+
+message ClearMapRequest {
+  string robot_id = 1;
+  MapType map_type = 2;
+}
+
+message MapResponse {
+  bool success = 1;
+  string message = 2;
+  optional OccupancyGridMap map_data = 3;
+  optional MapMetadata metadata = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message OccupancyGridMap {
+  MapMetadata info = 1;
+  bytes data = 2; // Occupancy grid data (0-100, 255=unknown)
+  string encoding = 3; // e.g., "mono8", "bgr8"
+}
+
+message MapMetadata {
+  google.protobuf.Timestamp map_load_time = 1;
+  float resolution = 2; // meters/pixel
+  uint32 width = 3; // pixels
+  uint32 height = 4; // pixels
+  Pose origin = 5; // Real-world pose of (0,0) pixel
+  string frame_id = 6; // ROS frame ID
+  uint32 version = 7;
+  MapSource source = 8;
+}
+
+message MapUpdate {
+  Rectangle update_region = 1;
+  bytes data = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+message Rectangle {
+  Point2D min = 1;
+  Point2D max = 2;
+}
+
+enum MapType {
+  MAP_TYPE_UNSPECIFIED = 0;
+  MAP_TYPE_OCCUPANCY_GRID = 1;
+  MAP_TYPE_COSTMAP = 2;
+  MAP_TYPE_SEMANTIC = 3;
+  MAP_TYPE_ELEVATION = 4;
+}
+
+enum MapSource {
+  MAP_SOURCE_UNSPECIFIED = 0;
+  MAP_SOURCE_SLAM = 1;
+  MAP_SOURCE_UPLOADED = 2;
+  MAP_SOURCE_SURVEYED = 3;
+  MAP_SOURCE_SATELLITE = 4;
+}
+
+// =============================================================================
+// POSITION AND POSE MESSAGES
+// =============================================================================
+
+message GetPositionRequest {
+  string robot_id = 1;
+  string frame_id = 2; // ROS frame (e.g., "map", "odom", "base_link")
+}
+
+message SetPositionRequest {
+  string robot_id = 1;
+  PoseWithCovariance pose = 2;
+  string frame_id = 3;
+}
+
+message StreamPositionRequest {
+  string robot_id = 1;
+  string frame_id = 2;
+  uint32 frequency_hz = 3; // Desired update frequency
+}
+
+message PositionResponse {
+  bool success = 1;
+  string message = 2;
+  optional PoseWithCovariance pose = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message PositionUpdate {
+  string robot_id = 1;
+  PoseWithCovariance pose = 2;
+  Twist velocity = 3;
+  string frame_id = 4;
+  google.protobuf.Timestamp timestamp = 5;
+  LocalizationQuality quality = 6;
+}
+
+message Pose {
+  Point3D position = 1;
+  Quaternion orientation = 2;
+}
+
+message PoseWithCovariance {
+  Pose pose = 1;
+  repeated double covariance = 2; // 6x6 covariance matrix (36 elements)
+}
+
+message Point2D {
+  double x = 1;
+  double y = 2;
+}
+
+message Point3D {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Quaternion {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}
+
+message Twist {
+  Vector3 linear = 1;
+  Vector3 angular = 2;
+}
+
+message Vector3 {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+// =============================================================================
+// VELOCITY COMMAND MESSAGES (JOYSTICK CONTROL)
+// =============================================================================
+
+message VelocityCommand {
+  string robot_id = 1;
+  Twist cmd_vel = 2;
+  google.protobuf.Duration timeout = 3; // Command timeout
+  JoystickInput joystick_input = 4; // Original joystick data
+  SafetyConstraints safety = 5;
+  ControlMode control_mode = 6;
+}
+
+message JoystickInput {
+  repeated float axes = 1; // Joystick axes values [-1.0, 1.0]
+  repeated bool buttons = 2; // Button states
+  google.protobuf.Timestamp timestamp = 3;
+  string controller_id = 4;
+}
+
+message VelocityResponse {
+  bool success = 1;
+  string message = 2;
+  Twist actual_velocity = 3; // What the robot is actually doing
+  google.protobuf.Timestamp timestamp = 4;
+  repeated SafetyViolation safety_violations = 5;
+}
+
+message StopMovementRequest {
+  string robot_id = 1;
+  EmergencyStopType stop_type = 2;
+}
+
+message SafetyConstraints {
+  double max_linear_velocity = 1; // m/s
+  double max_angular_velocity = 2; // rad/s
+  double max_acceleration = 3; // m/s^2
+  bool obstacle_avoidance_enabled = 4;
+  double safety_margin = 5; // meters
+  repeated string forbidden_zones = 6; // Zone IDs to avoid
+}
+
+message SafetyViolation {
+  SafetyViolationType type = 1;
+  string description = 2;
+  double severity = 3; // 0.0 to 1.0
+  google.protobuf.Timestamp detected_at = 4;
+}
+
+enum ControlMode {
+  CONTROL_MODE_UNSPECIFIED = 0;
+  CONTROL_MODE_MANUAL = 1;
+  CONTROL_MODE_ASSISTED = 2; // Manual with safety overrides
+  CONTROL_MODE_AUTONOMOUS = 3;
+}
+
+enum EmergencyStopType {
+  EMERGENCY_STOP_TYPE_UNSPECIFIED = 0;
+  EMERGENCY_STOP_TYPE_SOFT = 1; // Gradual deceleration
+  EMERGENCY_STOP_TYPE_HARD = 2; // Immediate stop
+  EMERGENCY_STOP_TYPE_FULL = 3; // Stop all systems
+}
+
+enum SafetyViolationType {
+  SAFETY_VIOLATION_TYPE_UNSPECIFIED = 0;
+  SAFETY_VIOLATION_TYPE_SPEED_LIMIT = 1;
+  SAFETY_VIOLATION_TYPE_OBSTACLE = 2;
+  SAFETY_VIOLATION_TYPE_BOUNDARY = 3;
+  SAFETY_VIOLATION_TYPE_SLOPE = 4;
+  SAFETY_VIOLATION_TYPE_BATTERY = 5;
+}
+
+// =============================================================================
+// NAVIGATION GOAL AND TRAJECTORY MESSAGES
+// =============================================================================
+
+message NavigationGoal {
+  string robot_id = 1;
+  string goal_id = 2;
+  PoseWithCovariance target_pose = 3;
+  string frame_id = 4;
+  NavigationOptions options = 5;
+  repeated Waypoint waypoints = 6; // For multi-point navigation
+  google.protobuf.Timestamp deadline = 7;
+}
+
+message TrajectoryCommand {
+  string robot_id = 1;
+  string trajectory_id = 2;
+  repeated TrajectoryPoint points = 3;
+  TrajectoryOptions options = 4;
+  string frame_id = 5;
+}
+
+message Waypoint {
+  string waypoint_id = 1;
+  PoseWithCovariance pose = 2;
+  WaypointType type = 3;
+  google.protobuf.Duration max_duration_at_waypoint = 4;
+  repeated WaypointAction actions = 5; // Actions to perform at waypoint
+}
+
+message TrajectoryPoint {
+  Pose pose = 1;
+  Twist velocity = 2;
+  google.protobuf.Timestamp time_from_start = 3;
+  repeated double accelerations = 4;
+}
+
+message NavigationOptions {
+  PlannerType planner = 1;
+  double tolerance_linear = 2; // meters
+  double tolerance_angular = 3; // radians
+  bool use_obstacle_avoidance = 4;
+  repeated string avoid_zones = 5;
+  NavigationBehavior behavior = 6;
+  uint32 max_planning_time_ms = 7;
+  uint32 max_retries = 8;
+}
+
+message TrajectoryOptions {
+  bool interpolate_path = 1;
+  double velocity_scaling = 2; // 0.0 to 1.0
+  bool check_collisions = 3;
+  TrajectoryExecutionMode execution_mode = 4;
+}
+
+message WaypointAction {
+  WaypointActionType type = 1;
+  google.protobuf.Duration duration = 2;
+  map<string, string> parameters = 3;
+}
+
+message CancelGoalRequest {
+  string robot_id = 1;
+  optional string goal_id = 2; // If empty, cancel current goal
+}
+
+message GetNavigationStatusRequest {
+  string robot_id = 1;
+}
+
+message StreamNavigationStatusRequest {
+  string robot_id = 1;
+  uint32 frequency_hz = 2;
+}
+
+message NavigationResponse {
+  bool success = 1;
+  string message = 2;
+  string goal_id = 3;
+  NavigationResult result = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message NavigationStatusResponse {
+  NavigationStatus status = 1;
+  NavigationProgress progress = 2;
+  optional NavigationGoal current_goal = 3;
+  repeated NavigationError errors = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message NavigationStatusUpdate {
+  string robot_id = 1;
+  NavigationStatus status = 2;
+  NavigationProgress progress = 3;
+  google.protobuf.Timestamp timestamp = 4;
+  optional NavigationError error = 5;
+}
+
+message NavigationProgress {
+  double distance_remaining = 1; // meters
+  double distance_traveled = 2; // meters
+  google.protobuf.Duration time_remaining = 3;
+  google.protobuf.Duration time_elapsed = 4;
+  uint32 current_waypoint_index = 5;
+  uint32 total_waypoints = 6;
+  double completion_percentage = 7; // 0.0 to 100.0
+}
+
+message NavigationError {
+  NavigationErrorCode code = 1;
+  string description = 2;
+  google.protobuf.Timestamp occurred_at = 3;
+  bool recoverable = 4;
+  repeated string suggested_actions = 5;
+}
+
+enum WaypointType {
+  WAYPOINT_TYPE_UNSPECIFIED = 0;
+  WAYPOINT_TYPE_PASS_THROUGH = 1;
+  WAYPOINT_TYPE_STOP = 2;
+  WAYPOINT_TYPE_INSPECTION = 3;
+  WAYPOINT_TYPE_WORK = 4;
+  WAYPOINT_TYPE_CHARGE = 5;
+}
+
+enum WaypointActionType {
+  WAYPOINT_ACTION_TYPE_UNSPECIFIED = 0;
+  WAYPOINT_ACTION_TYPE_PAUSE = 1;
+  WAYPOINT_ACTION_TYPE_CAPTURE_IMAGE = 2;
+  WAYPOINT_ACTION_TYPE_SPRAY = 3;
+  WAYPOINT_ACTION_TYPE_SCAN = 4;
+  WAYPOINT_ACTION_TYPE_COLLECT_SAMPLE = 5;
+}
+
+enum PlannerType {
+  PLANNER_TYPE_UNSPECIFIED = 0;
+  PLANNER_TYPE_A_STAR = 1;
+  PLANNER_TYPE_RRT = 2;
+  PLANNER_TYPE_DWA = 3; // Dynamic Window Approach
+  PLANNER_TYPE_TEB = 4; // Timed Elastic Band
+  PLANNER_TYPE_SPLINE = 5;
+}
+
+enum NavigationBehavior {
+  NAVIGATION_BEHAVIOR_UNSPECIFIED = 0;
+  NAVIGATION_BEHAVIOR_DIRECT = 1;
+  NAVIGATION_BEHAVIOR_CONSERVATIVE = 2;
+  NAVIGATION_BEHAVIOR_AGGRESSIVE = 3;
+  NAVIGATION_BEHAVIOR_PRECISION = 4;
+}
+
+enum TrajectoryExecutionMode {
+  TRAJECTORY_EXECUTION_MODE_UNSPECIFIED = 0;
+  TRAJECTORY_EXECUTION_MODE_IMMEDIATE = 1;
+  TRAJECTORY_EXECUTION_MODE_QUEUED = 2;
+  TRAJECTORY_EXECUTION_MODE_SCHEDULED = 3;
+}
+
+enum NavigationStatus {
+  NAVIGATION_STATUS_UNSPECIFIED = 0;
+  NAVIGATION_STATUS_IDLE = 1;
+  NAVIGATION_STATUS_PLANNING = 2;
+  NAVIGATION_STATUS_EXECUTING = 3;
+  NAVIGATION_STATUS_PAUSED = 4;
+  NAVIGATION_STATUS_COMPLETED = 5;
+  NAVIGATION_STATUS_FAILED = 6;
+  NAVIGATION_STATUS_CANCELLED = 7;
+  NAVIGATION_STATUS_RECOVERING = 8;
+}
+
+enum NavigationResult {
+  NAVIGATION_RESULT_UNSPECIFIED = 0;
+  NAVIGATION_RESULT_SUCCESS = 1;
+  NAVIGATION_RESULT_TIMEOUT = 2;
+  NAVIGATION_RESULT_OBSTACLE = 3;
+  NAVIGATION_RESULT_INVALID_GOAL = 4;
+  NAVIGATION_RESULT_PLANNING_FAILED = 5;
+  NAVIGATION_RESULT_PREEMPTED = 6;
+  NAVIGATION_RESULT_ABORTED = 7;
+}
+
+enum NavigationErrorCode {
+  NAVIGATION_ERROR_CODE_UNSPECIFIED = 0;
+  NAVIGATION_ERROR_CODE_NO_PATH = 1;
+  NAVIGATION_ERROR_CODE_TIMEOUT = 2;
+  NAVIGATION_ERROR_CODE_OBSTACLE = 3;
+  NAVIGATION_ERROR_CODE_LOCALIZATION_LOST = 4;
+  NAVIGATION_ERROR_CODE_CONTROLLER_FAILURE = 5;
+  NAVIGATION_ERROR_CODE_INVALID_GOAL = 6;
+  NAVIGATION_ERROR_CODE_RECOVERY_FAILED = 7;
+}
+
+// =============================================================================
+// CAMERA AND VIDEO STREAMING MESSAGES
+// =============================================================================
+
+message GetCameraInfoRequest {
+  string robot_id = 1;
+  string camera_id = 2; // Support for multiple cameras
+}
+
+message StreamVideoRequest {
+  string robot_id = 1;
+  string camera_id = 2;
+  VideoStreamOptions options = 3;
+}
+
+message CameraControlRequest {
+  string robot_id = 1;
+  string camera_id = 2;
+  CameraControlCommand command = 3;
+}
+
+message CameraInfoResponse {
+  bool success = 1;
+  string message = 2;
+  repeated CameraInfo cameras = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message CameraInfo {
+  string camera_id = 1;
+  string name = 2;
+  CameraType type = 3;
+  Resolution resolution = 4;
+  double framerate = 5;
+  CameraIntrinsics intrinsics = 6;
+  CameraDistortion distortion = 7;
+  string frame_id = 8; // ROS frame
+  CameraStatus status = 9;
+  repeated VideoFormat supported_formats = 10;
+}
+
+message VideoFrame {
+  string camera_id = 1;
+  bytes image_data = 2;
+  VideoFormat format = 3;
+  Resolution resolution = 4;
+  google.protobuf.Timestamp timestamp = 5;
+  uint64 frame_number = 6;
+  FrameMetadata metadata = 7;
+}
+
+message VideoStreamOptions {
+  VideoFormat format = 1;
+  Resolution resolution = 2;
+  uint32 framerate = 3;
+  VideoQuality quality = 4;
+  bool enable_compression = 5;
+  repeated OverlayType overlays = 6; // Optional overlays
+}
+
+message CameraControlCommand {
+  CameraControlType type = 1;
+  map<string, double> parameters = 2; // e.g., {"zoom": 2.0, "pan": 30.0}
+}
+
+message CameraControlResponse {
+  bool success = 1;
+  string message = 2;
+  map<string, double> current_settings = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message Resolution {
+  uint32 width = 1;
+  uint32 height = 2;
+}
+
+message CameraIntrinsics {
+  double focal_length_x = 1;
+  double focal_length_y = 2;
+  double principal_point_x = 3;
+  double principal_point_y = 4;
+  repeated double camera_matrix = 5; // 3x3 matrix (9 elements)
+}
+
+message CameraDistortion {
+  DistortionModel model = 1;
+  repeated double coefficients = 2;
+}
+
+message FrameMetadata {
+  double exposure_time = 1; // seconds
+  double gain = 2;
+  double white_balance = 3;
+  google.protobuf.Timestamp capture_time = 4;
+  optional Pose camera_pose = 5; // Camera pose when frame was captured
+}
+
+enum CameraType {
+  CAMERA_TYPE_UNSPECIFIED = 0;
+  CAMERA_TYPE_RGB = 1;
+  CAMERA_TYPE_DEPTH = 2;
+  CAMERA_TYPE_THERMAL = 3;
+  CAMERA_TYPE_MULTISPECTRAL = 4;
+  CAMERA_TYPE_STEREO = 5;
+  CAMERA_TYPE_LIDAR = 6;
+}
+
+enum VideoFormat {
+  VIDEO_FORMAT_UNSPECIFIED = 0;
+  VIDEO_FORMAT_MJPEG = 1;
+  VIDEO_FORMAT_H264 = 2;
+  VIDEO_FORMAT_H265 = 3;
+  VIDEO_FORMAT_VP8 = 4;
+  VIDEO_FORMAT_VP9 = 5;
+  VIDEO_FORMAT_RAW = 6;
+}
+
+enum VideoQuality {
+  VIDEO_QUALITY_UNSPECIFIED = 0;
+  VIDEO_QUALITY_LOW = 1;
+  VIDEO_QUALITY_MEDIUM = 2;
+  VIDEO_QUALITY_HIGH = 3;
+  VIDEO_QUALITY_ULTRA = 4;
+}
+
+enum CameraStatus {
+  CAMERA_STATUS_UNSPECIFIED = 0;
+  CAMERA_STATUS_ACTIVE = 1;
+  CAMERA_STATUS_INACTIVE = 2;
+  CAMERA_STATUS_ERROR = 3;
+  CAMERA_STATUS_CALIBRATING = 4;
+}
+
+enum CameraControlType {
+  CAMERA_CONTROL_TYPE_UNSPECIFIED = 0;
+  CAMERA_CONTROL_TYPE_PAN = 1;
+  CAMERA_CONTROL_TYPE_TILT = 2;
+  CAMERA_CONTROL_TYPE_ZOOM = 3;
+  CAMERA_CONTROL_TYPE_FOCUS = 4;
+  CAMERA_CONTROL_TYPE_EXPOSURE = 5;
+  CAMERA_CONTROL_TYPE_WHITE_BALANCE = 6;
+  CAMERA_CONTROL_TYPE_GAIN = 7;
+}
+
+enum DistortionModel {
+  DISTORTION_MODEL_UNSPECIFIED = 0;
+  DISTORTION_MODEL_PLUMB_BOB = 1;
+  DISTORTION_MODEL_RATIONAL_POLYNOMIAL = 2;
+  DISTORTION_MODEL_EQUIDISTANT = 3;
+}
+
+enum OverlayType {
+  OVERLAY_TYPE_UNSPECIFIED = 0;
+  OVERLAY_TYPE_CROSSHAIR = 1;
+  OVERLAY_TYPE_GRID = 2;
+  OVERLAY_TYPE_POSE = 3;
+  OVERLAY_TYPE_NAVIGATION_PATH = 4;
+  OVERLAY_TYPE_OBSTACLES = 5;
+  OVERLAY_TYPE_TIMESTAMP = 6;
+}
+
+// =============================================================================
+// LOCALIZATION AND SLAM MESSAGES
+// =============================================================================
+
+message GetLocalizationStatusRequest {
+  string robot_id = 1;
+}
+
+message InitializeLocalizationRequest {
+  string robot_id = 1;
+  optional PoseWithCovariance initial_pose = 2;
+  LocalizationMethod method = 3;
+  map<string, string> parameters = 4;
+}
+
+message ResetLocalizationRequest {
+  string robot_id = 1;
+  bool clear_map = 2;
+}
+
+message LocalizationStatusResponse {
+  LocalizationStatus status = 1;
+  LocalizationQuality quality = 2;
+  PoseWithCovariance current_pose = 3;
+  LocalizationMethod method = 4;
+  LocalizationMetrics metrics = 5;
+  google.protobuf.Timestamp timestamp = 6;
+}
+
+message LocalizationResponse {
+  bool success = 1;
+  string message = 2;
+  LocalizationStatus status = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message LocalizationQuality {
+  double confidence = 1; // 0.0 to 1.0
+  double position_uncertainty = 2; // meters
+  double orientation_uncertainty = 3; // radians
+  uint32 matched_features = 4;
+  double drift_estimate = 5; // meters
+  LocalizationHealth health = 6;
+}
+
+message LocalizationMetrics {
+  uint32 particle_count = 1; // For particle filter
+  double effective_sample_size = 2;
+  double convergence_rate = 3;
+  google.protobuf.Duration update_frequency = 4;
+  uint32 sensor_updates_count = 5;
+  double map_match_score = 6;
+}
+
+enum LocalizationStatus {
+  LOCALIZATION_STATUS_UNSPECIFIED = 0;
+  LOCALIZATION_STATUS_INITIALIZING = 1;
+  LOCALIZATION_STATUS_TRACKING = 2;
+  LOCALIZATION_STATUS_LOST = 3;
+  LOCALIZATION_STATUS_RECOVERING = 4;
+  LOCALIZATION_STATUS_DEGRADED = 5;
+}
+
+enum LocalizationMethod {
+  LOCALIZATION_METHOD_UNSPECIFIED = 0;
+  LOCALIZATION_METHOD_AMCL = 1; // Adaptive Monte Carlo Localization
+  LOCALIZATION_METHOD_EKF = 2; // Extended Kalman Filter
+  LOCALIZATION_METHOD_PARTICLE_FILTER = 3;
+  LOCALIZATION_METHOD_VISUAL_SLAM = 4;
+  LOCALIZATION_METHOD_GPS_RTK = 5;
+  LOCALIZATION_METHOD_HYBRID = 6;
+}
+
+enum LocalizationHealth {
+  LOCALIZATION_HEALTH_UNSPECIFIED = 0;
+  LOCALIZATION_HEALTH_GOOD = 1;
+  LOCALIZATION_HEALTH_FAIR = 2;
+  LOCALIZATION_HEALTH_POOR = 3;
+  LOCALIZATION_HEALTH_CRITICAL = 4;
+}
