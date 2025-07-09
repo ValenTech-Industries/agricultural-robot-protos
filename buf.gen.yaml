@@ -1,26 +1,22 @@
 version: v1
-managed:
-  enabled: true
-  go_package_prefix:
-    default: github.com/your-org/agricultural-robot-protos/generated/go
 plugins:
-  # TypeScript/JavaScript
-  - plugin: buf.build/connectrpc/es
+  # Generate JavaScript files with TypeScript declarations
+  - plugin: buf.build/protocolbuffers/js
     out: generated/typescript
-    opt: target=ts
+    opt: import_style=commonjs,binary
+  
+  # Generate TypeScript declarations
+  - plugin: buf.build/protocolbuffers/js
+    out: generated/typescript
+    opt: import_style=commonjs,binary,dts
+  
+  # Generate gRPC service definitions
+  - plugin: buf.build/grpc/node
+    out: generated/typescript
+    opt: grpc_js
   
   # Python
   - plugin: buf.build/protocolbuffers/python
     out: generated/python
-  - plugin: buf.build/protocolbuffers/pyi
-    out: generated/python
   - plugin: buf.build/grpc/python
     out: generated/python
-  
-  # Go
-  - plugin: buf.build/protocolbuffers/go
-    out: generated/go
-    opt: paths=source_relative
-  - plugin: buf.build/grpc/go
-    out: generated/go
-    opt: paths=source_relative
